@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <time.h>
+#include <math.h>
 
 
 int pathCheck(char random_path[100][3], int num) {
@@ -26,10 +27,19 @@ void random_City_Position(City* city) {
 }
 void insertNode(char start, char dest, int times) {
 	int tstart = start - 'a';
+	int tdest = dest - 'a';
+	int ttm=0;
 	NODE* cur, * Newnode;
 	Newnode = (NODE*)malloc(sizeof(NODE));
+	Newnode->length=(int)sqrt(pow(city[tstart].pos_x - city[dest].pos_x, 2) + pow(city[tstart].pos_y - city[dest].pos_y, 2));
+	//Newnode->length = ;
 	Newnode->next = NULL;
 	Newnode->data = dest;
+	for (int i = 0; i < 31; i++) {
+		ttm=rand() % 24; // 무작위 시간 
+		Newnode->tm[i]= ttm;
+	}
+	
 	cur = Adjlist[tstart].head->next;
 	if ((Adjlist[tstart].len == 0)) {
 		Newnode->next = cur;
@@ -84,6 +94,32 @@ void PrintList(int i) {
 	}
 	printf("\n");
 }
+
+void PrintListTime(char city_name, int date_num) {
+	int i = (int)(city_name - 'a');
+	int k = 0;
+	if (date_num > 10) k = 24;
+	else k = 23;
+	NODE* cur;
+	int dec;
+	printf("┏");  //첫번째 줄
+	for (int i = 0; i < k; i++) printf("━");
+	printf("┓\n");
+	printf("┃ ");
+	printf("<%c공항 %d일의 시간표>", city_name, date_num);
+	printf("  ┃ \n");
+	printf("┗");  //세번 째 줄
+	for (int i = 0; i < k; i++) printf("━");
+	printf("┛\n\n");
+	
+	cur = Adjlist[i].head->next;
+	while (!cur == NULL) {
+		printf("> %c -> %c %d시\n", city_name, cur->data, cur->tm[date_num]);
+		cur = cur->next;
+	}
+	printf("\n");
+}
+
 
 
 void make_ADJlist() {

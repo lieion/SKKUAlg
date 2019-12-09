@@ -12,9 +12,9 @@ void squre_box_print2();
 void squre_box_print3();
 void random_reserve(RBtree t);
 int main() {
-
 	RBtree t = RBtree_create();
 	group_20_aircraft_print(); //air print
+	random_City_Position(city);
 	random_reserve(t);
 	make_ADJlist();
 	int choose_number;
@@ -27,6 +27,7 @@ int main() {
 		printf(" \n    ***  여행지를 선택 : 1 ***\n");
 		printf(" \n    ***  예약 조회 : 2  *** \n");
 		printf(" \n    ***  예약 취소 : 3  *** \n");
+		printf(" \n    ***  비행기 정보 : 4  *** \n");
 		printf(" \n    ***  종료   : -1  *** \n\n");
 		printf("***********************************\n");
 
@@ -63,6 +64,7 @@ int main() {
 			else
 				reservation[reserve_check_number].date = temp_date_check;
 
+			//make_route(reservation[reserve_check_number].source, reservation[reserve_check_number].destination, reservation[reserve_check_number].date);
 			//printf("경로 : \n");
 			printf(" \n -> 예약 하시겠습니까? \n");
 			printf(" 1  : 예 \n");
@@ -169,13 +171,44 @@ int main() {
 			else printf("조회되지 않는 번호 입니다.\n\n");
 			//break;
 		}
+		else if (choose_number == 4) {
+			char airport;
+			int flight_day = 0;
+			printf("┏");  //첫번째 줄
+			for (int i = 0; i < 44; i++) printf("━");
+			printf("┓\n");
+			printf("┃ ");
+			printf("비행 정보를 보고 싶은 도시를 입력해주세요");
+			printf("  ┃ \n");
+			printf("┗");  //세번 째 줄
+			for (int i = 0; i < 44; i++) printf("━");
+			printf("┛\n\n");
+			printf("-> ");
+			scanf("%s", &airport);
+			printf("\n");
+			squre_box_print3();
+			printf("┏");  //첫번째 줄
+			for (int i = 0; i < 44; i++) printf("━");
+			printf("┓\n");
+			printf("┃ ");
+			printf("비행 정보를 보고 싶은 날짜를 입력해주세요");
+			printf("  ┃ \n");
+			printf("┗");  //세번 째 줄
+			for (int i = 0; i < 44; i++) printf("━");
+			printf("┛\n\n");
+			printf("-> ");
+			scanf("%d", &flight_day);
+			printf("\n");
+			PrintListTime(airport, flight_day);
+
+		}
 
 		else  if (choose_number != -1 && choose_number > 3) {
 			printf("다시 입력해주세요 !\n\n\n ");
 		}
 		if (choose_number == -1) {
 			printf("조회를 종료합니다!\n");
-			break;
+			exit(1);
 		}
 		///	}	
 			//if (choose_number == -1) break;

@@ -18,7 +18,8 @@ typedef struct city {
 typedef struct node {
 	struct node* next;
 	int data;
-	int tm;
+	int tm[31];
+	int length;
 }NODE;
 
 typedef struct link
@@ -26,6 +27,8 @@ typedef struct link
 	NODE* head;
 	int len;
 } LinkedList;
+
+City city[26];
 
 
 
@@ -37,6 +40,7 @@ void random_City_Position(City* city);
 void insertNode( char start, char dest, int times);
 void init_Node();
 void PrintList(int i);
+void PrintListTime(char city_name, int date_num);
 void make_ADJlist();
 
 
